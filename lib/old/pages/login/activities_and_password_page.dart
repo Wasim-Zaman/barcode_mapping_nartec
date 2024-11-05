@@ -1,7 +1,9 @@
 // ignore_for_file: avoid_print
 
-import 'package:awesome_dialog/awesome_dialog.dart';
+import 'dart:developer';
+
 import 'package:barcode_mapping/constants/app_icons.dart';
+import 'package:barcode_mapping/constants/app_preferences.dart';
 import 'package:barcode_mapping/global/common/utils/app_dialogs.dart';
 import 'package:barcode_mapping/global/common/utils/app_navigator.dart';
 import 'package:barcode_mapping/global/common/utils/custom_dialog.dart';
@@ -9,6 +11,7 @@ import 'package:barcode_mapping/global/widgets/buttons/primary_button.dart';
 import 'package:barcode_mapping/global/widgets/drop_down/drop_down_widget.dart';
 import 'package:barcode_mapping/global/widgets/text_field/text_field_widget.dart';
 import 'package:barcode_mapping/models/activities/new_activities_model.dart';
+import 'package:barcode_mapping/models/member_login_response.dart';
 import 'package:barcode_mapping/old/domain/services/apis/login/login_services.dart';
 import 'package:barcode_mapping/old/pages/login/otp_page.dart';
 import 'package:barcode_mapping/screens/capture/capture_screen.dart';
@@ -88,10 +91,18 @@ class _ActivitiesAndPasswordPageState extends State<ActivitiesAndPasswordPage> {
           activityValue!,
           passwordController.text.trim(),
           activityId.toString(),
-        ).then((value) {
+        ).then((value) async {
           AppDialogs.closeDialog();
 
-          print("value: $value");
+          log("value: $value");
+
+          final res = MemberLoginResponseModel.fromJson(value);
+
+          await AppPreferences.setUserId(res.memberData?.id ?? "");
+          await AppPreferences.setGcp(res.memberData?.gcpGLNID ?? '');
+          await AppPreferences.setMemberCategoryDescription(
+            res.memberData?.membershipCategory ?? '',
+          );
 
           // final message = value['message'] as String;
           // final generatedOtp = value['otp'] as String;
@@ -103,20 +114,16 @@ class _ActivitiesAndPasswordPageState extends State<ActivitiesAndPasswordPage> {
           //   password: passwordController.text,
           //   generatedOtp: "",
           // );
-          AppNavigator.goToPage(
+          AppNavigator.replaceTo(
             context: context,
             screen: const CaptureScreen(),
           );
         }).onError((error, stackTrace) {
+          log("error: $error");
           AppDialogs.closeDialog();
-          AwesomeDialog(
-            context: context,
-            dialogType: DialogType.warning,
-            animType: AnimType.rightSlide,
-            title: 'Message',
-            desc: error.toString().replaceFirst('Exception:', ""),
-            btnOkOnPress: () {},
-          ).show();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(error.toString())),
+          );
         });
       } else {
         CustomDialog.error(context);
