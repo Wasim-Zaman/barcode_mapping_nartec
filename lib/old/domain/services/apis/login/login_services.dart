@@ -8,6 +8,7 @@ import 'package:barcode_mapping/models/LoginUser/BrandOwnerLoginModel.dart';
 import 'package:barcode_mapping/models/LoginUser/SupplierLoginModel.dart';
 import 'package:barcode_mapping/models/Member/member_data_model.dart';
 import 'package:barcode_mapping/models/activities/email_activities_model.dart';
+import 'package:barcode_mapping/models/activities/new_activities_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -137,17 +138,65 @@ class LoginServices {
     });
   }
 
+  static Future<Map<String, dynamic>> newLoginWithPassword(
+    String email,
+    String activity,
+    String password,
+    String activityId,
+  ) {
+    final baseUrl = '${AppUrls.domain}/api//users/memberLogin';
+    final uri = Uri.parse(baseUrl);
+
+    print(jsonEncode({
+      'email': email,
+      'activity': activity,
+      'activityID': activityId,
+      'password': password,
+    }));
+
+    return http.post(
+      uri,
+      body: json.encode(
+        {
+          // body should include email
+          'email': email,
+          'activity': activity,
+          'activityID': activityId,
+          'password': password,
+        },
+      ),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Host': 'gs1ksa.org',
+      },
+    ).then((response) {
+      if (response.statusCode == 200) {
+        // handle successful response
+        final responseBody = json.decode(response.body) as Map<String, dynamic>;
+        return responseBody;
+      } else if (response.statusCode == 422) {
+        throw Exception('Please Wait For Admin Approval');
+      } else {
+        throw Exception('Error happended while logging in');
+      }
+    });
+  }
+
   static Future<List<EmailActivitiesModel>> login({String? email}) async {
     final baseUrl = '${AppUrls.domain}/api/email/verification';
 
     final uri = Uri.parse(baseUrl);
     try {
+      print("uri: $uri");
       final response =
           await http.post(uri, body: json.encode({'email': email}), headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Host': AppUrls.host,
       });
+
+      print('response: ${response.statusCode}');
 
       if (response.statusCode == 200) {
         // handle successful response
@@ -156,6 +205,47 @@ class LoginServices {
         final List<EmailActivitiesModel> emailActivities = [];
         for (final item in data) {
           emailActivities.add(EmailActivitiesModel.fromJson(item));
+        }
+        return emailActivities;
+      } else if (response.statusCode == 404) {
+        // print('responseBody: ${json.decode(response.body)}');
+
+        // return {
+        //   "message": "Email doesn't exist",
+        // };
+        throw Exception('Email doesn\'t exist');
+      } else {
+        // print('responseBody: ${json.decode(response.body)}');
+
+        // handle error response
+        throw Exception('Error happended while loading data');
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  static Future<List<NewActivitiesModel>> newLogin({String? email}) async {
+    final baseUrl = '${AppUrls.domain}/api/users/getCrInfoByEmail?email=$email';
+
+    final uri = Uri.parse(baseUrl);
+    try {
+      print("uri: $uri");
+      final response = await http.get(uri, headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Host': AppUrls.host,
+      });
+
+      print('response: ${response.body}');
+
+      if (response.statusCode == 200) {
+        // handle successful response
+        final responseBody = json.decode(response.body);
+        final data = responseBody as List;
+        final List<NewActivitiesModel> emailActivities = [];
+        for (final item in data) {
+          emailActivities.add(NewActivitiesModel.fromJson(item));
         }
         return emailActivities;
       } else if (response.statusCode == 404) {

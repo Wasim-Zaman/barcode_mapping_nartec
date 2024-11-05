@@ -1,8 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:barcode_mapping/constants/app_icons.dart';
 import 'package:barcode_mapping/global/common/utils/app_dialogs.dart';
 import 'package:barcode_mapping/global/common/utils/app_navigator.dart';
@@ -10,14 +8,17 @@ import 'package:barcode_mapping/global/common/utils/custom_dialog.dart';
 import 'package:barcode_mapping/global/widgets/buttons/primary_button.dart';
 import 'package:barcode_mapping/global/widgets/drop_down/drop_down_widget.dart';
 import 'package:barcode_mapping/global/widgets/text_field/text_field_widget.dart';
-import 'package:barcode_mapping/models/activities/email_activities_model.dart';
+import 'package:barcode_mapping/models/activities/new_activities_model.dart';
 import 'package:barcode_mapping/old/domain/services/apis/login/login_services.dart';
 import 'package:barcode_mapping/old/pages/login/otp_page.dart';
+import 'package:barcode_mapping/screens/BarcodeMappingScreen.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class ActivitiesAndPasswordPage extends StatefulWidget {
   final String email;
-  final List<EmailActivitiesModel>? activities;
+  final List<NewActivitiesModel>? activities;
   const ActivitiesAndPasswordPage(
       {super.key, required this.email, this.activities});
   static const String pageName = '/activitiesAndPassword';
@@ -40,14 +41,14 @@ class _ActivitiesAndPasswordPageState extends State<ActivitiesAndPasswordPage> {
   void initState() {
     super.initState();
     widget.activities?.forEach((element) {
-      if (element.activity != "null" || element.activity != null) {
-        activities.add(element.activity!);
+      if (element.crActivity != "null" || element.crActivity != null) {
+        activities.add(element.crActivity);
       }
     });
     activityValue = activities[0];
     activityId = widget.activities!
-        .firstWhere((element) => element.activity == activityValue)
-        .activityID;
+        .firstWhere((element) => element.crActivity == activityValue)
+        .crActivity;
   }
 
   showOtpPopup(
@@ -82,35 +83,40 @@ class _ActivitiesAndPasswordPageState extends State<ActivitiesAndPasswordPage> {
       if (activityValue != null && passwordController.text.isNotEmpty) {
         AppDialogs.loadingDialog(context);
 
-        LoginServices.loginWithPassword(
+        LoginServices.newLoginWithPassword(
           widget.email,
           activityValue!,
           passwordController.text.trim(),
           activityId.toString(),
         ).then((value) {
           AppDialogs.closeDialog();
-          final message = value['message'] as String;
-          final generatedOtp = value['otp'] as String;
 
-          showOtpPopup(
-            message,
-            email: widget.email,
-            activity: activityValue,
-            password: passwordController.text,
-            generatedOtp: generatedOtp,
+          print("value: $value");
+
+          // final message = value['message'] as String;
+          // final generatedOtp = value['otp'] as String;
+
+          // showOtpPopup(
+          //   "Login Successfully",
+          //   email: widget.email,
+          //   activity: activityValue,
+          //   password: passwordController.text,
+          //   generatedOtp: "",
+          // );
+          AppNavigator.goToPage(
+            context: context,
+            screen: BarcodeMappingScreen(),
           );
         }).onError((error, stackTrace) {
           AppDialogs.closeDialog();
-          if (error.toString() == 'Exception: Please Wait For Admin Approval') {
-            AwesomeDialog(
-              context: context,
-              dialogType: DialogType.warning,
-              animType: AnimType.rightSlide,
-              title: 'Message',
-              desc: error.toString().replaceFirst('Exception:', ""),
-              btnOkOnPress: () {},
-            ).show();
-          }
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.warning,
+            animType: AnimType.rightSlide,
+            title: 'Message',
+            desc: error.toString().replaceFirst('Exception:', ""),
+            btnOkOnPress: () {},
+          ).show();
         });
       } else {
         CustomDialog.error(context);
@@ -182,8 +188,8 @@ class _ActivitiesAndPasswordPageState extends State<ActivitiesAndPasswordPage> {
                             activityValue = activity.toString();
                             activityId = widget.activities!
                                 .firstWhere((element) =>
-                                    element.activity == activityValue)
-                                .activityID;
+                                    element.crActivity == activityValue)
+                                .crActivity;
                           });
                           print("activityId: $activityId");
                         },

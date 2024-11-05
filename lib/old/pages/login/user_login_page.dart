@@ -57,7 +57,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
   login() {
     if (formKey.currentState?.validate() ?? false) {
       AppDialogs.loadingDialog(context);
-      LoginServices.login(email: emailController.text).then((response) {
+      LoginServices.newLogin(email: emailController.text).then((response) {
         AppDialogs.closeDialog();
         final activities = response;
 
