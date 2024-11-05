@@ -11,7 +11,7 @@ import 'package:barcode_mapping/global/widgets/text_field/text_field_widget.dart
 import 'package:barcode_mapping/models/activities/new_activities_model.dart';
 import 'package:barcode_mapping/old/domain/services/apis/login/login_services.dart';
 import 'package:barcode_mapping/old/pages/login/otp_page.dart';
-import 'package:barcode_mapping/screens/BarcodeMappingScreen.dart';
+import 'package:barcode_mapping/screens/capture/capture_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -105,7 +105,7 @@ class _ActivitiesAndPasswordPageState extends State<ActivitiesAndPasswordPage> {
           // );
           AppNavigator.goToPage(
             context: context,
-            screen: BarcodeMappingScreen(),
+            screen: const CaptureScreen(),
           );
         }).onError((error, stackTrace) {
           AppDialogs.closeDialog();

@@ -7,7 +7,7 @@ import 'package:barcode_mapping/global/common/utils/app_toast.dart';
 import 'package:barcode_mapping/global/widgets/buttons/primary_button.dart';
 import 'package:barcode_mapping/global/widgets/text_field/text_field_widget.dart';
 import 'package:barcode_mapping/old/domain/services/apis/login/login_services.dart';
-import 'package:barcode_mapping/screens/BarcodeMappingScreen.dart';
+import 'package:barcode_mapping/screens/capture/capture_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -63,8 +63,7 @@ class _OtpPageState extends State<OtpPage> {
         AppDialogs.closeDialog();
 
         // Get.toNamed(MenuPage.pageName);
-        AppNavigator.replaceTo(
-            context: context, screen: BarcodeMappingScreen());
+        AppNavigator.replaceTo(context: context, screen: const CaptureScreen());
       } catch (e) {
         AppDialogs.closeDialog();
         AppToast.danger(e.toString());

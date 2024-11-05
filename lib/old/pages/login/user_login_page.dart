@@ -10,7 +10,7 @@ import 'package:barcode_mapping/global/widgets/text_field/text_field_widget.dart
 import 'package:barcode_mapping/old/domain/services/apis/login/login_services.dart';
 import 'package:barcode_mapping/old/pages/login/activities_and_password_page.dart';
 import 'package:barcode_mapping/old/providers/login/login_provider.dart';
-import 'package:barcode_mapping/screens/BarcodeMappingScreen.dart';
+import 'package:barcode_mapping/screens/capture/capture_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -97,7 +97,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
 
       AppDialogs.closeDialog();
       AppSnackbars.success(context, "Login Successful", 2);
-      AppNavigator.replaceTo(context: context, screen: BarcodeMappingScreen());
+      AppNavigator.replaceTo(context: context, screen: const CaptureScreen());
     }).onError((error, stackTrace) {
       AppDialogs.closeDialog();
       AppSnackbars.danger(context, error.toString());
@@ -119,7 +119,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
 
       AppDialogs.closeDialog();
       AppSnackbars.success(context, "Login Successful", 2);
-      AppNavigator.replaceTo(context: context, screen: BarcodeMappingScreen());
+      AppNavigator.replaceTo(context: context, screen: const CaptureScreen());
     }).onError((error, stackTrace) {
       AppDialogs.closeDialog();
       AppSnackbars.danger(context, error.toString());
