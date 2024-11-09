@@ -2,8 +2,8 @@
 
 import 'dart:convert';
 
-import 'package:barcode_mapping/constants/app_preferences.dart';
-import 'package:barcode_mapping/constants/app_urls.dart';
+import 'package:barcode_mapping/core/constants/app_preferences.dart';
+import 'package:barcode_mapping/core/constants/app_urls.dart';
 import 'package:barcode_mapping/models/LoginUser/BrandOwnerLoginModel.dart';
 import 'package:barcode_mapping/models/LoginUser/SupplierLoginModel.dart';
 import 'package:barcode_mapping/models/Member/member_data_model.dart';

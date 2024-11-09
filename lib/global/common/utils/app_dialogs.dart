@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:barcode_mapping/global/common/colors/app_colors.dart';
 import 'package:barcode_mapping/global/widgets/loading/loading_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class AppDialogs {
   static BuildContext? dialogueContext;

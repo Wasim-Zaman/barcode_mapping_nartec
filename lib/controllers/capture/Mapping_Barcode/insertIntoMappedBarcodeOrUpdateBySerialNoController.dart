@@ -1,9 +1,10 @@
 // ignore_for_file: camel_case_types, file_names, avoid_print
 
-import 'package:barcode_mapping/constants/app_preferences.dart';
-import 'package:barcode_mapping/constants/app_urls.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:barcode_mapping/core/constants/app_preferences.dart';
+import 'package:barcode_mapping/core/constants/app_urls.dart';
+import 'package:http/http.dart' as http;
 
 class insertIntoMappedBarcodeOrUpdateBySerialNoController {
   static Future<void> insert(

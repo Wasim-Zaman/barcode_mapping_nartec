@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:barcode_mapping/constants/app_urls.dart';
+import 'package:barcode_mapping/core/constants/app_urls.dart';
 import 'package:barcode_mapping/old/domain/services/models/dispatch_management/gln_model.dart';
 import 'package:barcode_mapping/old/domain/services/models/dispatch_management/job_details_model.dart';
 import 'package:barcode_mapping/old/domain/services/models/dispatch_management/job_order_details_model.dart';

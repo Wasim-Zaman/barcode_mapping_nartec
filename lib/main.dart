@@ -1,4 +1,4 @@
-import 'package:barcode_mapping/global/themes/themes.dart';
+import 'package:barcode_mapping/core/theme/app_theme.dart';
 import 'package:barcode_mapping/old/pages/login/user_login_page.dart';
 import 'package:barcode_mapping/old/providers/dispatch_management/gln_provider.dart';
 import 'package:barcode_mapping/old/providers/login/login_provider.dart';
@@ -39,7 +39,8 @@ class MyApp extends StatelessWidget {
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Barcode Mapping',
-            theme: Themes.lightTheme(),
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
             home: const UserLoginPage(),
           ),
         ),

@@ -2,8 +2,8 @@
 
 import 'dart:developer';
 
-import 'package:barcode_mapping/constants/app_icons.dart';
-import 'package:barcode_mapping/constants/app_preferences.dart';
+import 'package:barcode_mapping/core/constants/app_icons.dart';
+import 'package:barcode_mapping/core/constants/app_preferences.dart';
 import 'package:barcode_mapping/global/common/utils/app_dialogs.dart';
 import 'package:barcode_mapping/global/common/utils/app_navigator.dart';
 import 'package:barcode_mapping/global/common/utils/custom_dialog.dart';
@@ -14,7 +14,7 @@ import 'package:barcode_mapping/models/activities/new_activities_model.dart';
 import 'package:barcode_mapping/models/member_login_response.dart';
 import 'package:barcode_mapping/old/domain/services/apis/login/login_services.dart';
 import 'package:barcode_mapping/old/pages/login/otp_page.dart';
-import 'package:barcode_mapping/screens/capture/capture_screen.dart';
+import 'package:barcode_mapping/view/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -116,7 +116,7 @@ class _ActivitiesAndPasswordPageState extends State<ActivitiesAndPasswordPage> {
           // );
           AppNavigator.replaceTo(
             context: context,
-            screen: const CaptureScreen(),
+            screen: const HomeScreen(),
           );
         }).onError((error, stackTrace) {
           log("error: $error");

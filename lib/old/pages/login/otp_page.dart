@@ -1,13 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:barcode_mapping/constants/app_icons.dart';
+import 'package:barcode_mapping/core/constants/app_icons.dart';
 import 'package:barcode_mapping/global/common/utils/app_dialogs.dart';
 import 'package:barcode_mapping/global/common/utils/app_navigator.dart';
 import 'package:barcode_mapping/global/common/utils/app_toast.dart';
 import 'package:barcode_mapping/global/widgets/buttons/primary_button.dart';
 import 'package:barcode_mapping/global/widgets/text_field/text_field_widget.dart';
 import 'package:barcode_mapping/old/domain/services/apis/login/login_services.dart';
-import 'package:barcode_mapping/screens/capture/capture_screen.dart';
+import 'package:barcode_mapping/view/screens/capture/capture_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

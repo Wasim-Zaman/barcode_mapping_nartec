@@ -1,8 +1,8 @@
-import 'package:barcode_mapping/constants/app_icons.dart';
+import 'package:barcode_mapping/core/constants/app_icons.dart';
 import 'package:barcode_mapping/global/common/colors/app_colors.dart';
 import 'package:barcode_mapping/global/common/utils/app_navigator.dart';
 import 'package:barcode_mapping/global/widgets/buttons/card_icon_button.dart';
-import 'package:barcode_mapping/screens/capture/Mapping_Barcode/BarcodeMappingScreen.dart';
+import 'package:barcode_mapping/view/screens/capture/Mapping_Barcode/BarcodeMappingScreen.dart';
 import 'package:flutter/material.dart';
 
 class CaptureScreen extends StatefulWidget {

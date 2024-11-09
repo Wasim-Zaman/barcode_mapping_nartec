@@ -1,5 +1,5 @@
+import 'package:barcode_mapping/core/constants/app_images.dart';
 import 'package:flutter/material.dart';
-import 'package:barcode_mapping/constants/app_images.dart';
 
 class AppLogo extends StatelessWidget {
   final double? height;

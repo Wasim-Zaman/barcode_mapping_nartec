@@ -1,12 +1,12 @@
 // ignore_for_file: unused_element, avoid_print, sized_box_for_whitespace, use_key_in_widget_constructors, depend_on_referenced_packages
 
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:barcode_mapping/constants/app_images.dart';
 import 'package:barcode_mapping/controllers/Receiving/supplier_receipt/UpdateStockMasterDataController.dart';
 import 'package:barcode_mapping/controllers/capture/Mapping_Barcode/GetItemInfoByItemSerialNoController.dart';
 import 'package:barcode_mapping/controllers/capture/Mapping_Barcode/GetTblStockMasterByItemIdController.dart';
 import 'package:barcode_mapping/controllers/capture/Mapping_Barcode/getAllTblMappedBarcodesController.dart';
 import 'package:barcode_mapping/controllers/capture/Mapping_Barcode/insertIntoMappedBarcodeOrUpdateBySerialNoController.dart';
+import 'package:barcode_mapping/core/constants/app_images.dart';
 import 'package:barcode_mapping/global/common/colors/app_colors.dart';
 import 'package:barcode_mapping/global/common/utils/app_dialogs.dart';
 import 'package:barcode_mapping/global/widgets/ElevatedButtonWidget.dart';

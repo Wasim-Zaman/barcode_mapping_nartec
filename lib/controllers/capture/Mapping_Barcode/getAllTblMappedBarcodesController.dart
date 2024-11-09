@@ -2,8 +2,8 @@
 
 import 'dart:convert';
 
-import 'package:barcode_mapping/constants/app_preferences.dart';
-import 'package:barcode_mapping/constants/app_urls.dart';
+import 'package:barcode_mapping/core/constants/app_preferences.dart';
+import 'package:barcode_mapping/core/constants/app_urls.dart';
 import 'package:barcode_mapping/models/capture/mapping_barcode/getInventTableWMSDataByItemIdOrItemNameModel.dart';
 import 'package:http/http.dart' as http;
 
