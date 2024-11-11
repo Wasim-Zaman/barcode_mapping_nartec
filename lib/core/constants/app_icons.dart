@@ -1,4 +1,5 @@
 class AppIcons {
+  static const printpack = 'assets/icons/printpack';
   static const String usernameIcon = 'assets/icons/username_icon.png';
   static const String passwordIcon = 'assets/icons/password_icon.png';
   // static const String dispatch = 'assets/icons/dispatch.png';
@@ -42,6 +43,12 @@ class AppIcons {
   static const String share = 'assets/icons/share-icon.png';
   static const String iosLogo = 'assets/icons/iso_logo.png';
   static const String gs1Logo = 'assets/icons/gs1_logo.jpeg';
+
+  // New Home Screen
+  static const icMappingBarcode = '$printpack/ic_mapping_barcode.png';
+  static const icMappingRfid = '$printpack/ic_mapping_rfid.png';
+  static const icScanBarcode = '$printpack/ic_scan_barcode.png';
+  static const icVerifiedByGs1 = '$printpack/ic_verified_by_gs1.png';
 
   // Identify Screen
   static const String gtin = 'assets/icons/gtin.png';

@@ -23,4 +23,18 @@ class AppNavigator {
       ),
     );
   }
+
+  static replaceToAndRemoveUntil({
+    required BuildContext context,
+    required Widget screen,
+  }) {
+    return Navigator.pushAndRemoveUntil(
+      context,
+      PageTransition(
+        child: screen,
+        type: PageTransitionType.bottomToTop,
+      ),
+      (route) => false,
+    );
+  }
 }

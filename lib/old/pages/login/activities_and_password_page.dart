@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:barcode_mapping/core/constants/app_icons.dart';
 import 'package:barcode_mapping/core/constants/app_preferences.dart';
+import 'package:barcode_mapping/global/common/colors/app_colors.dart';
 import 'package:barcode_mapping/global/common/utils/app_dialogs.dart';
 import 'package:barcode_mapping/global/common/utils/app_navigator.dart';
 import 'package:barcode_mapping/global/common/utils/custom_dialog.dart';
@@ -114,7 +115,7 @@ class _ActivitiesAndPasswordPageState extends State<ActivitiesAndPasswordPage> {
           //   password: passwordController.text,
           //   generatedOtp: "",
           // );
-          AppNavigator.replaceTo(
+          AppNavigator.replaceToAndRemoveUntil(
             context: context,
             screen: const HomeScreen(),
           );
@@ -145,132 +146,128 @@ class _ActivitiesAndPasswordPageState extends State<ActivitiesAndPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: context.width,
-        height: context.height,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/login_background.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
+      body: SafeArea(
         child: Form(
           key: formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    "assets/images/trans_logo.png",
-                    width: 200,
-                    height: 200,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      "assets/images/logo.png",
+                      width: 200,
+                      height: 200,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Container(
-                      //   margin: const EdgeInsets.only(left: 60),
-                      //   child: const Text('Select your activity'),
-                      // ),
-                      const Text(
-                        "Select Activity",
-                        style: TextStyle(
-                          fontSize: 23,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: AppColors.shadow,
+                          blurRadius: 10,
                         ),
-                      ),
-                      DropDownWidget(
-                        items: activities,
-                        value: activityValue ?? activities[0],
-                        onChanged: (activity) {
-                          setState(() {
-                            activityValue = activity.toString();
-                            activityId = widget.activities!
-                                .firstWhere((element) =>
-                                    element.crActivity == activityValue)
-                                .crActivity;
-                          });
-                          print("activityId: $activityId");
-                        },
-                      ),
-
-                      const SizedBox(height: 30),
-
-                      const Text(
-                        "Enter Password",
-                        style: TextStyle(
-                          fontSize: 23,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Select Activity',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      TextFieldWidget(
-                        focusNode: passwordFocusNode,
-                        hintText: "Password",
-                        controller: passwordController,
-                        leadingIcon: Image.asset(
-                          AppIcons.passwordIcon,
-                          width: 42,
-                          height: 42,
-                        ),
-                        onFieldSubmitted: (p0) {
-                          FocusScope.of(context).unfocus();
-                          login();
-                        },
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: obscureText,
-                        validator: (p0) {
-                          if (p0!.isEmpty) {
-                            return 'Please enter your password';
-                          }
-                          return null;
-                        },
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.remove_red_eye),
-                          onPressed: () {
+                        DropDownWidget(
+                          items: activities,
+                          value: activityValue ?? activities[0],
+                          onChanged: (activity) {
                             setState(() {
-                              obscureText = !obscureText;
+                              activityValue = activity.toString();
+                              activityId = widget.activities!
+                                  .firstWhere((element) =>
+                                      element.crActivity == activityValue)
+                                  .crActivity;
                             });
                           },
                         ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        alignment: Alignment.centerRight,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            const Text(
-                              'Forgot password?',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            TextButton(
-                              onPressed: () {},
-                              child: const Text(
-                                'Click here',
-                                style: TextStyle(color: Colors.blue),
-                              ),
-                            ),
-                          ],
+                        const SizedBox(height: 20),
+                        const Text(
+                          'Enter Password',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                    ],
+                        TextFieldWidget(
+                          focusNode: passwordFocusNode,
+                          hintText: "Password",
+                          controller: passwordController,
+                          leadingIcon: Image.asset(
+                            AppIcons.passwordIcon,
+                            width: 42,
+                            height: 42,
+                          ),
+                          onFieldSubmitted: (p0) {
+                            FocusScope.of(context).unfocus();
+                            login();
+                          },
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: obscureText,
+                          validator: (p0) {
+                            if (p0!.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            return null;
+                          },
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.remove_red_eye),
+                            onPressed: () {
+                              setState(() {
+                                obscureText = !obscureText;
+                              });
+                            },
+                          ),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          alignment: Alignment.centerRight,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Text(
+                                'Forgot password?',
+                                style: TextStyle(color: AppColors.grey),
+                              ),
+                              TextButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  'Click here',
+                                  style: TextStyle(color: AppColors.green),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        PrimaryButtonWidget(
+                          backgroungColor: AppColors.green,
+                          onPressed: login,
+                          text: "Login Now",
+                        ).box.width(context.width * 0.85).makeCentered(),
+                      ],
+                    ),
                   ),
-                ),
-                PrimaryButtonWidget(
-                  onPressed: login,
-                  text: "Login Now",
-                ).box.width(context.width * 0.85).makeCentered(),
-              ],
+                ],
+              ),
             ),
           ),
         ),
